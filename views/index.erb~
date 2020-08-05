@@ -1,0 +1,6 @@
+<p><a href='/new'>メモの作成画面へ</a></p>
+<ul>
+  <% @titles.each do |title| %>
+  <li><a href="/<%= title %>"><%= title %></a></li> 
+  <% end %>
+</ul>

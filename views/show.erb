@@ -1,0 +1,16 @@
+<p><a href='/new'>メモの作成画面へ</a></p>
+<p><a href='/'>top</a></p>
+<p><a href='/<%= @title  %>/edit'>メモの更新画面へ</a></p>
+
+<%= @title %>
+<%= @detaile %>
+
+<form action="/<%= @title %>/edit" method="post">
+  <input type="submit" value="更新する">
+  <input type="hidden" name="_method" value="get" >
+</form>
+
+<form action="/<%= @title %>" method="post">
+  <input type="submit" value="削除する">
+  <input type="hidden" name="_method" value="delete" >
+</form>

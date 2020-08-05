@@ -1,0 +1,17 @@
+h1 {
+  color: red;
+  background-color: blue;
+}
+
+body {
+  background-color: yellow;
+}
+
+div {
+  background: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
