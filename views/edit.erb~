@@ -1,4 +1,0 @@
-<form>
-  <button formaction="/" formmethod="get" class="btn btn-primary">メモの一覧へ</button>
-</form>
-<%= erb :form %>

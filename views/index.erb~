@@ -1,9 +1,0 @@
-<form>
-  <button formaction="/new" formmethod="get" class="btn btn-primary">メモの作成画面へ</button>
-</form>
-
-<ol class="titles">
-  <% @titles.each do |title| %>
-    <li class="title-item"><a href="/<%= title %>"><%= title %></a></li> 
-  <% end %>
-</ol>
