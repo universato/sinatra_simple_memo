@@ -1,17 +1,79 @@
 h1 {
-  color: red;
-  background-color: blue;
 }
 
 body {
-  background-color: yellow;
 }
 
 div {
-  background: red;
+}
+
+.app_name {
+  color: #666;
+  margin: 16px;
+  text-shadow: 1px 2px 1px #999;
+}
+
+.container {
+  background-color: #eee;
+  width: 480px;
+  padding: 20px;
+  line-height: 1.8;
+  margin: 16px auto;
+  border: solid 1px black;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 32px;
+  margin: 16px;
+}
+
+.titles {
+  margin: 8px;
+}
+
+.title-item {
+  font-size: 24px;
+}
+
+.detaile {
+  font-size: 20px;
+  height: 200px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn {
+  
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.form-item {
+  display: block;
+  width: 400px; 
+  margin: 16px;
+  padding: 0 0 0 8px;
+}
+
+.form_title {
+  height: 64px;
+  font-size: 32px;
+}
+
+
+.form_detail {
+  height: 200px;
+  font-size: 20px;
+  line-height: 1.8;
+  padding: 10px;
 }

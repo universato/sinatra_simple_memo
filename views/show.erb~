@@ -1,15 +1,18 @@
-<p><a href='/new'>メモの作成画面へ</a></p>
-<p><a href='/'>top</a></p>
-<p><a href='/<%= @title  %>/edit'>メモの更新画面へ</a></p>
-
-<%= @title %>
-<%= @detaile %>
-
-<form action="/<%= @title %>/edit" method="get">
-  <input type="submit" value="更新する">
+<form>
+  <button formaction="/" formmethod="get" class="btn btn-primary">メモの一覧へ</button>
+  <button formaction="/new" formmethod="get" class="btn btn-primary">メモの作成画面へ</button>
 </form>
 
-<form action="/<%= @title %>" method="post">
-  <input type="submit" value="削除する">
-  <input type="hidden" name="_method" value="delete" >
-</form>
+<h1 class="title"><%= @title %></h1>
+
+<div class="detaile"> <%= @detaile %></div>
+
+<div class="buttons"> 
+  <form action="/<%= @title %>/edit" method="get">
+    <input type="submit" value="更新する" class="btn btn-success">
+  </form>
+  <form action="/<%= @title %>" method="post">
+    <input type="submit" value="削除する" class="btn btn-danger">
+    <input type="hidden" name="_method" value="delete" >
+  </form>
+</div>
