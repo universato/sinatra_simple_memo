@@ -35,7 +35,7 @@ post '/' do
   File.open(MEMO_FILE, 'w+') do |file|
     JSON.dump(memos, file)
   end
-  redirect "/#{@title}"
+  redirect URI.encode("/#{@title}")
 end
 
 get '/:title' do |title|
@@ -53,11 +53,11 @@ get '/:title/edit' do |title|
 end
 
 patch '/:old_title' do |old_title|
-  title = params['title'] 
-  detail = params['detail']
-  memos = memos()
-  memos.delete(old_title)
-  memos[title] = detail
+  p title = params['title'] 
+  p detail = params['detail']
+  p memos = memos()
+  p memos.delete(old_title)
+  p memos[title] = detail
   File.open(MEMO_FILE, 'w+') do |file|
     JSON.dump(memos, file)
   end
