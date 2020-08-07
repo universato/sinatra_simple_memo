@@ -3,7 +3,6 @@ require 'sinatra/reloader'
 require 'json'
 
 MEMO_FILE = 'sample.json'
-enable :method_override
 
 def memos
   memos = File.open(MEMO_FILE) do |j|
