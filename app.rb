@@ -24,8 +24,8 @@ get '/new' do
 end
 
 post '/' do
-  p @title = params['title']
-  p @detail = params['detail']
+  @title = params['title']
+  @detail = params['detail']
   memos = memos()
   if memos[@title] || @title == 'new'
     @error = "既にあるタイトルであるため登録できませんした。"
