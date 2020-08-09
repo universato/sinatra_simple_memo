@@ -2,18 +2,14 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'json'
+require 'bundler'
+require './memo'
 
-MEMO_FILE = 'sample.json'
-
-def memos
-  File.open(MEMO_FILE) do |j|
-    JSON.load(j)
-  end
-end
+Bundler.require
 
 get '/' do
-  @titles = (memos ? memos.keys : {})
+  @titles = Memo.titles
+  Memo.destroy_by_title("'")
   erb :index
 end
 
@@ -28,27 +24,28 @@ end
 post '/' do
   @title = params['title']
   @detail = params['detail']
-  memos = memos()
-  if memos[@title] || @title == 'new'
-    @error = '既にあるタイトルであるため登録できませんした。'
+  memo = Memo.new(title: @title, detail: @detail) 
+  @action = 'new'
+  @action_jp = '保存'
+  if memo.save
+    redirect CGI.escape("/#{@title}")
+  else
+    @title = nil
     erb :new
   end
-  memos[@title] = @detail
-  File.open(MEMO_FILE, 'w+') do |file|
-    JSON.dump(memos, file)
-  end
-  redirect CGI.escape("/#{@title}")
 end
 
 get '/:title' do |title|
-  @title = title
-  @detail = memos[title]
+  memo = Memo.find_by_title(title)
+  @title = memo['title']
+  @detail = Rack::Utils.escape_html(memo['detail'])
   erb :show
 end
 
 get '/:title/edit' do |title|
-  @title = title
-  @detail = memos[title]
+  memo = Memo.find_by_title(title)
+  @title = memo['title']
+  @detail = memo['detail']
   @action = 'edit'
   @action_jp = '更新'
   erb :edit
@@ -57,20 +54,11 @@ end
 patch '/:old_title' do |old_title|
   title = params['title']
   detail = params['detail']
-  memos = memos()
-  memos.delete(old_title)
-  memos[title] = detail
-  File.open(MEMO_FILE, 'w+') do |file|
-    JSON.dump(memos, file)
-  end
+  Memo.update_by_title(old_title, title, detail)
   redirect CGI.escape("/#{title}")
 end
 
 delete '/:title' do |title|
-  memos = memos()
-  memos.delete(title)
-  File.open(MEMO_FILE, 'w+') do |file|
-    JSON.dump(memos, file)
-  end
+  Memo.destroy_by_title(title)
   redirect '/'
 end
