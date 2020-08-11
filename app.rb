@@ -24,7 +24,7 @@ end
 post '/' do
   @title = params['title']
   @detail = params['detail']
-  memo = Memo.new(title: @title, detail: @detail) 
+  memo = Memo.new(title: @title, detail: @detail)
   @action = 'new'
   @action_jp = '保存'
   if memo.save

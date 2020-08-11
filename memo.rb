@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require 'pg'
 
+# Memo is a class like ActiveRecord in order to make it easy to manage Postgres DB
 class Memo
   attr_accessor :title, :detail
 
   def self.connect
-    PG::connect(host: 'localhost', user: 'uni', dbname: 'sinatrasimplememo', port: 5432)
+    PG.connect(host: 'localhost', user: 'uni', dbname: 'sinatrasimplememo', port: 5432)
   end
 
   def self.titles
@@ -13,25 +16,20 @@ class Memo
     result = connection.exec(query)
     result.map { |data| data['title'] }
   end
-  
+
   def self.find_by_title(title)
-    title = Memo.simple_escape(title)
-    query = "SELECT * FROM memos WHERE title = '#{title}'"
-    Memo.connect.exec(query)[0]
+    query = 'SELECT * FROM memos WHERE title = $1'
+    Memo.connect.exec(query, [title])[0]
   end
-  
+
   def self.update_by_title(old_title, title, detail)
-    old_title = Memo.simple_escape(old_title)
-    title = Memo.simple_escape(title)
-    detail = Memo.simple_escape(detail)
-    query = "UPDATE memos SET title = '#{title}', detail = '#{detail}' WHERE title = '#{old_title}'"
-    Memo.connect.exec(query)
+    query = 'UPDATE memos SET title = $1, detail = $2 WHERE title = $3'
+    Memo.connect.exec(query, [title, detail, old_title])
   end
-  
+
   def self.destroy_by_title(title)
-    title = Memo.simple_escape(title)
-    query = "DELETE FROM memos WHERE title = '#{title}'" 
-    Memo.connect.exec(query)
+    query = 'DELETE FROM memos WHERE title = $1'
+    Memo.connect.exec(query, [title])
   end
 
   def self.create(title: nil, detail: nil)
@@ -39,23 +37,19 @@ class Memo
     memo.save
   end
 
-  def self.simple_escape(input)
-    input.gsub("'", "''")
-    # .gsub("/", "'/")
-  end
-
   def initialize(title: nil, detail: nil)
-    @title = Memo.simple_escape(title)
-    @detail = Memo.simple_escape(detail)
+    @title = title
+    @detail = detail
   end
 
   def save
     connection = Memo.connect
     raise 'EmptyTitleError' if title.strip.chomp.empty?
     raise 'InvalidTitleError' if title == 'new'
-    query = "INSERT INTO memos (title, detail) VALUES ('#{title}', '#{detail}')"
-    result = connection.exec(query)
-  rescue => e
+
+    query = 'INSERT INTO memos (title, detail) VALUES ($1, $2)'
+    connection.exec(query, [title, detail])
+  rescue EmptyTitleError, InvalidTitleError => e
     puts e
     nil
   end
