@@ -28,7 +28,7 @@ post '/' do
   @action = 'new'
   @action_jp = '保存'
   if memo.save
-    redirect CGI.escape("/#{@title}")
+    redirect CGI.escape("#{@title}")
   else
     @title = nil
     erb :new
@@ -55,7 +55,7 @@ patch '/:old_title' do |old_title|
   title = params['title']
   detail = params['detail']
   Memo.update_by_title(old_title, title, detail)
-  redirect CGI.escape("/#{title}")
+  redirect CGI.escape("#{title}")
 end
 
 delete '/:title' do |title|
