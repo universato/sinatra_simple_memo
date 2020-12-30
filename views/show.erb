@@ -3,7 +3,7 @@
 
 <h1 class="title"><%= @title %></h1>
 
-<div class="detail"> <%= @detail %></div>
+<div class="detail"> <%= escape_html(@detail) %></div>
 
 <div class="buttons">
   <a href="/<%= @title %>/edit" class="btn btn-success">更新する</a>

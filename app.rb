@@ -3,7 +3,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'bundler'
-require './memo'
+require_relative './memo'
 
 Bundler.require
 
@@ -38,7 +38,7 @@ end
 get '/:title' do |title|
   memo = Memo.find_by_title(title)
   @title = memo['title']
-  @detail = Rack::Utils.escape_html(memo['detail'])
+  @detail = memo['detail']
   erb :show
 end
 
@@ -62,3 +62,7 @@ delete '/:title' do |title|
   Memo.destroy_by_title(title)
   redirect '/'
 end
+
+# not_found do
+#   'Sinatra Simple Memo: 404 Not Found'
+# end

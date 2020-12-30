@@ -2,6 +2,8 @@
 
 <ol class="titles">
   <% @titles.each do |title| %>
-    <li class="title-item"><a href="/<%= title %>"><%= title %></a></li>
+    <li class="title-item">
+      <a href="/<%= escape_path(title) %>"><%= escape_html(title) %></a>
+    </li>
   <% end %>
 </ol>
