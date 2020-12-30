@@ -7,7 +7,7 @@ class Memo
   attr_accessor :title, :detail
 
   def self.connect
-    PG.connect(host: 'localhost', user: 'uni', dbname: 'sinatrasimplememo', port: 5432)
+    PG.connect(host: 'localhost', user: 'uni', dbname: 'sinatra_simple_memo_db', port: 5432)
   end
 
   def self.titles
