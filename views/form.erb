@@ -1,11 +1,11 @@
 <form action="/<%= @title %>" method="post" class="form">
 
   <div class="text-left">
-    <input type="text" name="title" placeholder="タイトル" value="<%= @title %>"class="form-item  form_title">
+    <input type="text" name="title" placeholder="タイトル" value="<%= @title %>"class="form-item form_title">
   </div>
 
   <div class="card-bodyi text-left">
-    <textarea name="detail" placeholder="詳細の入力" class="form-item form_detail detail"><%= @detail %></textarea>
+    <textarea name="body" placeholder="詳細の入力" class="form-item form_body body"><%= @body %></textarea>
   </div>
   <input type="submit" value="メモを<%= @action_jp %>する" class="btn btn-success form-item form_submit form-control">
 
