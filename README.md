@@ -37,13 +37,11 @@ drop table if exists memos;
 create table memos (
   id serial not null,
   title text not null,
-  detail text,
+  body text,
   primary key (id),
   unique (title)
 );
 ```
-
-(detailをbodyに変えたいな)
 
 ### アプリの立ち上げ方法
 

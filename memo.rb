@@ -6,11 +6,11 @@ require 'pg'
 class Memo
   class MemoError < StandardError; end
 
-  def initialize(title: nil, detail: nil)
+  def initialize(title: nil, body: nil)
     @title = title
-    @detail = detail
+    @body = body
   end
-  attr_accessor :title, :detail
+  attr_accessor :title, :body
 
   class << self
     def connect
@@ -41,10 +41,10 @@ class Memo
       {}
     end
 
-    def update_by_title(old_title, title, detail)
-      query = 'UPDATE memos SET title = $1, detail = $2 WHERE title = $3'
+    def update_by_title(old_title, title, body)
+      query = 'UPDATE memos SET title = $1, body = $2 WHERE title = $3'
       @connection ||= Memo.connect
-      @connection.exec(query, [title, detail, old_title])
+      @connection.exec(query, [title, body, old_title])
     end
 
     def destroy_by_title(title)
@@ -53,8 +53,8 @@ class Memo
       @connection.exec(query, [title])
     end
 
-    def create(title: nil, detail: nil)
-      memo = Memo.new(title: title, detail: detail)
+    def create(title: nil, body: nil)
+      memo = Memo.new(title: title, body: body)
       memo.save
     end
   end
@@ -64,9 +64,9 @@ class Memo
     1 while title.gsub!(/<script>/i, '')
     raise MemoError if title.strip.chomp.empty? || title == 'new'
 
-    query = 'INSERT INTO memos (title, detail) VALUES ($1, $2)'
+    query = 'INSERT INTO memos (title, body) VALUES ($1, $2)'
     @connection ||= Memo.connect
-    @connection.exec(query, [title, detail])
+    @connection.exec(query, [title, body])
   rescue MemoError => e
     puts e
   end
