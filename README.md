@@ -6,7 +6,7 @@ RubyのSinatraの演習のために作ったメモアプリです。
 
 ## バージョン
 
-Ruby 2.7
+Ruby 3.0
 
 ## セットアップ方法
 
@@ -29,6 +29,15 @@ USER=uni
 ユーザー名を除いて、デフォルトで上記の設定です。
 
 #### DBのテーブルの構築
+
+##### DBの作成、接続
+
+```sql
+create database sinatra_simple_memo_db;
+\c sinatra_simple_memo_db;
+```
+
+##### テーブルの作成
 
 テーブルは、下記のように作ります。
 

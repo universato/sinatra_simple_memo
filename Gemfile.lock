@@ -8,7 +8,7 @@ GEM
     rack (2.2.3)
     rack-protection (2.1.0)
       rack
-    ruby2_keywords (0.0.2)
+    ruby2_keywords (0.0.5)
     sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
@@ -23,6 +23,7 @@ GEM
     sinatra-reloader (1.0)
       sinatra-contrib
     tilt (2.0.10)
+    webrick (1.7.0)
 
 PLATFORMS
   ruby
@@ -31,6 +32,7 @@ DEPENDENCIES
   pg
   sinatra
   sinatra-reloader
+  webrick
 
 BUNDLED WITH
-   1.17.2
+   2.2.26
